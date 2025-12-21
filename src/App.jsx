@@ -11,16 +11,20 @@ const noop = () => {};
 
 /* ================= NAVBAR ================= */
 
-function NavBar({ navigate = noop }) {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+function NavBar() {
   const [open, setOpen] = useState(false);
   const [secretCount, setSecretCount] = useState(0);
+  const navigate = useNavigate();
 
   const handleTitleClick = () => {
     const next = secretCount + 1;
     setSecretCount(next);
     if (next >= 5) {
       setSecretCount(0);
-      navigate("__admin__");
+      navigate("/admin");
     }
   };
 
@@ -30,11 +34,13 @@ function NavBar({ navigate = noop }) {
 
       <div className="flex justify-between items-center px-6 py-4">
         <div className="cursor-pointer select-none" onClick={handleTitleClick}>
-          <div className="font-bold text-2xl flex items-end" style={{ fontFamily: 'serif' }}>
+          <div className="font-bold text-2xl flex items-end" style={{ fontFamily: "serif" }}>
             <span className="text-orange-500">हम</span>
             <span className="text-blue-700 ml-1 -mb-0.5">Rahi</span>
           </div>
-          <div className="text-xs text-gray-700">AI‑Driven • Powered by YatraMind™</div>
+          <div className="text-xs text-gray-700">
+            AI-Driven • Powered by YatraMind™
+          </div>
         </div>
 
         <button
@@ -48,15 +54,37 @@ function NavBar({ navigate = noop }) {
 
       {open && (
         <div className="absolute right-4 top-full mt-2 w-48 border rounded-xl px-4 py-4 bg-amber-100 shadow-lg space-y-3">
-          <button className="block w-full text-left" onClick={() => { navigate("home"); setOpen(false); }}>Home</button>
-          <button className="block w-full text-left" onClick={() => { navigate("packages"); setOpen(false); }}>Explore Packages</button>
-          <button className="block w-full text-left" onClick={() => { navigate("blogs"); setOpen(false); }}>Photos & Blogs</button>
-          <button className="block w-full text-left" onClick={() => { navigate("contact"); setOpen(false); }}>Contact Us</button>
+          <button
+            className="block w-full text-left"
+            onClick={() => { navigate("/"); setOpen(false); }}
+          >
+            Home
+          </button>
+          <button
+            className="block w-full text-left"
+            onClick={() => { navigate("/packages"); setOpen(false); }}
+          >
+            Explore Packages
+          </button>
+          <button
+            className="block w-full text-left"
+            onClick={() => { navigate("/blogs"); setOpen(false); }}
+          >
+            Photos & Blogs
+          </button>
+          <button
+            className="block w-full text-left"
+            onClick={() => { navigate("/contact"); setOpen(false); }}
+          >
+            Contact Us
+          </button>
         </div>
       )}
     </div>
   );
 }
+
+export default NavBar;
 
 /* ================= BUTTON ================= */
 
@@ -278,13 +306,20 @@ function Admin() {
   return <div className="p-10">Admin Dashboard</div>;
 }
 
-export default function App() {
-  import { Routes, Route } from "react-router-dom";
+import NavBar from "./NavBar";
+import Home from "./Home";
+import Packages from "./Packages";
+import Blogs from "./Blogs";
+import Contact from "./Contact";
+import Admin from "./Admin";
+
+import { Routes, Route } from "react-router-dom";
 
 export default function App() {
   return (
     <div>
       <NavBar />
+
       <div className="min-h-screen bg-gradient-to-br from-[#fdf6ec] via-[#eef6ff] to-[#e6f0ff]">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -298,17 +333,3 @@ export default function App() {
   );
 }
 
-  return (
-    <div>
-      <NavBar navigate={setPage} />
-      <div className="min-h-screen bg-gradient-to-br from-[#fdf6ec] via-[#eef6ff] to-[#e6f0ff]">
-
-        {page === "home" && <Home navigate={setPage} />}
-        {page === "packages" && <Packages navigate={setPage} />}
-        {page === "blogs" && <Blogs />}
-        {page === "contact" && <Contact navigate={setPage} />}
-        {page === "__admin__" && <Admin />}
-      </div>
-    </div>
-  );
-}
