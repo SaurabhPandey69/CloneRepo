@@ -279,7 +279,25 @@ function Admin() {
 }
 
 export default function App() {
-  const [page, setPage] = useState("home");
+  import { Routes, Route } from "react-router-dom";
+
+export default function App() {
+  return (
+    <div>
+      <NavBar />
+      <div className="min-h-screen bg-gradient-to-br from-[#fdf6ec] via-[#eef6ff] to-[#e6f0ff]">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/packages" element={<Packages />} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/admin" element={<Admin />} />
+        </Routes>
+      </div>
+    </div>
+  );
+}
+
   return (
     <div>
       <NavBar navigate={setPage} />
