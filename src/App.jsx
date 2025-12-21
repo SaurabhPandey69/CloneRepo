@@ -5,13 +5,14 @@
 // ✅ Text-based branding only (no logo image)
 // ✅ JSX-safe and stable
 
+import { Routes, Route } from "react-router-dom";
+
 import React, { useState } from "react";
 
 const noop = () => {};
 
 /* ================= NAVBAR ================= */
 
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function NavBar() {
@@ -84,7 +85,6 @@ function NavBar() {
   );
 }
 
-export default NavBar;
 
 /* ================= BUTTON ================= */
 
@@ -97,7 +97,7 @@ function Button({ children, onClick = noop, variant = "primary", type = "button"
 
 /* ================= HOME ================= */
 
-function Home({ navigate = noop }) {
+function Home() {
   return (
 
     <div
@@ -202,7 +202,7 @@ function Home({ navigate = noop }) {
 
 /* ================= OTHER PAGES ================= */
 
-function Packages({ navigate = noop }) {
+function Packages() {
   const [form, setForm] = useState({ destination: "", type: "Pilgrimage", travellers: "", days: "", budget: "" });
   const [recommendation, setRecommendation] = useState(null);
 
@@ -281,7 +281,7 @@ function Blogs() {
   );
 }
 
-function Contact({ navigate = noop }) {
+function Contact() {
   const [submitted, setSubmitted] = useState(false);
   return (
     <div className="p-10 max-w-3xl mx-auto bg-white rounded-2xl shadow space-y-6">
@@ -305,15 +305,6 @@ function Contact({ navigate = noop }) {
 function Admin() {
   return <div className="p-10">Admin Dashboard</div>;
 }
-
-import NavBar from "./NavBar";
-import Home from "./Home";
-import Packages from "./Packages";
-import Blogs from "./Blogs";
-import Contact from "./Contact";
-import Admin from "./Admin";
-
-import { Routes, Route } from "react-router-dom";
 
 export default function App() {
   return (
